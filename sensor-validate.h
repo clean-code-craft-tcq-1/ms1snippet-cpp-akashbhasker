@@ -1,3 +1,3 @@
-bool validateSOCreadings(const double* values, int numOfValues);
+bool isSOCReadingsValid(const double* values, int numOfValues);
 
-bool validateCurrentreadings(const double* values, int numOfValues);
+bool isCurrentReadingsValid(const double* values, int numOfValues);
