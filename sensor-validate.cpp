@@ -19,19 +19,19 @@ auto generateDeltaCheckFunction(double maxDelta)
 		return (delta > maxDelta) ? false : true ; };
 }
 
-auto Soc_SpikeCheckValidation     = generateDeltaCheckFunction(SoC_MAX_DELTA);
-auto Current_SpikeCheckValidation = generateDeltaCheckFunction(Current_MAX_DELTA);
+auto Soc_DeltaValidation     = generateDeltaCheckFunction(SoC_MAX_DELTA);
+auto Current_DeltaValidation = generateDeltaCheckFunction(Current_MAX_DELTA);
 
 /*
  * Description : Checks if input data passes the provided validation check
  * @ Return    : False if validation Fails , True otherwise
  */
-bool isReadingsValid(const double* values, int numOfValues, auto validationCheck)
+bool isReadingsValid(const double* values, int numOfValues, auto deltaValidation)
 {
 	int lastButOneIndex = numOfValues - 1;
 	for(int index = 0; index < lastButOneIndex; ++index)
 	{
-		if(validationCheck(values[index], values[index + 1]) == FAILURE)
+		if(deltaValidation(values[index], values[index + 1]) == FAILURE)
 		{
 			return false;
 		}
@@ -48,7 +48,7 @@ bool isSOCReadingsValid(const double* values, int numOfValues)
 {
 	if(values != NULL && numOfValues > 0)
 	{
-		return isReadingsValid(values, numOfValues, Soc_SpikeCheckValidation);
+		return isReadingsValid(values, numOfValues, Soc_DeltaValidation);
 	}
 	return false;
 }
@@ -61,7 +61,7 @@ bool isCurrentReadingsValid(const double* values, int numOfValues)
 {
 	if(values != NULL && numOfValues > 0)
 	{
-		return isReadingsValid(values, numOfValues, Current_SpikeCheckValidation);
+		return isReadingsValid(values, numOfValues, Current_DeltaValidation);
 	}
 	return false;
 }
