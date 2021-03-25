@@ -9,7 +9,7 @@
  */
 TEST_CASE("Report error when SoC readings jumps abruptly - Upward Spike")
 {
-  double socReadings[] = {0.0, 0.01, 0.5, 0.51};
+  double socReadings[] = {0.0, 0.01, 0.5, 0.51, 0.6};
   int numOfSocReadings = sizeof(socReadings) / sizeof(socReadings[0]);
 
   REQUIRE(isSOCReadingsValid(socReadings, numOfSocReadings) == false);
@@ -56,7 +56,7 @@ TEST_CASE("reports error when current jumps abruptly - Upward Spike")
 
 TEST_CASE("reports error when current jumps abruptly - Downward Spike")
 {
-  double currentReadings[] = {0.03, 0.03, 0.03, 0.33};
+  double currentReadings[] = {0.33, 0.03, 0.03};
   int numOfCurReadings = sizeof(currentReadings) / sizeof(currentReadings[0]);
 
   REQUIRE(isCurrentReadingsValid(currentReadings, numOfCurReadings) == false);
